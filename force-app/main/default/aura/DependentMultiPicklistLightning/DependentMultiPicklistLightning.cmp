@@ -1,0 +1,47 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:appHostable" access="global"
+                controller="DependentMultiPicklistLightningCtrl"
+                description="Dependent Multipicklist where the controlling field can be a Multipicklist">
+  <aura:attribute name="objectName" type="String" access="global" required="true"
+                  description="API name of the custom or standard object" default="Account"/>
+  <aura:attribute name="controllingFieldName" type="String" access="global" required="true"
+                  description="API name of the controlling multipicklist field" default="Controlling_Field__c"/>
+  <aura:attribute name="dependentFieldName" Type="String" access="global" required="true"
+                  description="API name of the dependent multipicklist field" default="Dependent_Field__c"/>
+
+  <aura:attribute name="controllingValues" type="List" access="private"
+                  description="Values to be displayed in the controlling multipicklist field"/>
+  <aura:attribute name="dependentValuesMap" type="Object" access="private"
+                  description="All values of the dependent picklist field, useful for this component controller"
+                  default="[]"/>
+  <aura:attribute name="displayedDependentValues" type="List" access="private"
+                  description="Values to be displayed on the dependent multipicklist field" default="[]"/>
+  <aura:attribute name="convertedAdminMapping" type="Object" access="private"
+                  description="A conversion of the admin mapping, readable by the Lightning:dualListBox component"/>
+  <aura:attribute name="errorMessage" type="String" access="private"
+                  description="Errors captured by the system displays in this attribute" default="NoError"/>
+
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+  <aura:if isTrue="{!v.errorMessage == 'NoError'}">
+    <lightning:dualListbox name="controllingMultiPicklist"
+                           label="Select controlling values"
+                           sourceLabel="Select controlling values"
+                           selectedLabel="Selected controlling values"
+                           fieldLevelHelp="Select controlling values"
+                           options="{! v.controllingValues }"
+                           onchange="{! c.handleChangeOnControllingValues }"/>
+    <lightning:dualListbox name="dependentMultiPicklist"
+                           label="Select Dependent Values"
+                           sourceLabel="Select Dependent Values"
+                           selectedLabel="Selected Dependent Values"
+                           fieldLevelHelp="Select Dependent Values"
+                           options="{! v.displayedDependentValues }"
+                           onchange="{! c.handleChangeOnDependentValues }"/>
+    <aura:set attribute="else">
+      <ui:message title="DependentMultiPicklistLightning custom component:" severity="error" closable="true">
+        We encountered the following error: {!v.errorMessage}
+      </ui:message>
+    </aura:set>
+  </aura:if>
+
+</aura:component>

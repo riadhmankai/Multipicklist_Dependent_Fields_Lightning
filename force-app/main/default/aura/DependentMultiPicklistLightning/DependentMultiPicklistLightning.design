@@ -1,0 +1,12 @@
+<!--
+ - Created by Riadh Mankai on 2020-09-21.
+ -->
+
+<design:component label="Dependent Multipicklist Lightning">
+  <design:attribute name="objectName" label="Object API Name" description="API name of the custom or standard object"
+                    default="Account"/>
+  <design:attribute name="controllingFieldName" label="Controlling Field API Name"
+                    description="API name of the controlling multipicklist field" default="Controlling_Field__c"/>
+  <design:attribute name="dependentFieldName" label="Dependent Field API Name"
+                    description="API name of the dependent multipicklist field" default="Dependent_Field__c"/>
+</design:component>
