@@ -1,0 +1,6 @@
+.forceignore
+
+.sfdx/*
+.idea/*
+illuminatedCloud/*
+.DS_Store
